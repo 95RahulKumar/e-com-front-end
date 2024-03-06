@@ -1,0 +1,28 @@
+@import './mixin';
+@import './pallete';
+
+//generating font-size classes from 1 to 100 px
+@include font-size('fs-',1,100,'px');
+
+
+//generating the padding classes from 5 to 100 px using gap 5px
+@include padding('padding','p-',5,100,'px');
+@include padding('padding-left','pl-',5,100,'px');
+@include padding('padding-right','pr-',5,100,'px');
+@include padding('padding-top','pt-',5,100,'px');
+@include padding('padding-bottom','pb-',5,100,'px');
+
+//generating the margin classes from 5 to 100 px using gap 5px
+@include padding('margin','m-',5,100,'px');
+@include padding('margin-left','ml-',5,100,'px');
+@include padding('margin-right','mr-',5,100,'px');
+@include padding('margin-top','mt-',5,100,'px');
+@include padding('margin-bottom','mb-',5,100,'px');
+
+//generating theme classes
+@include theme-class($primary, '.col-', 'color','primary');
+@include theme-class($accent, '.col-', 'color','accent');
+@include theme-class($warn, '.col-', 'color','warn');
+@include theme-class($theme_bg, '.col-', 'color','theme_bg');
+//generate font-weight
+@include fontweight('font-weight','fw-',100,10)

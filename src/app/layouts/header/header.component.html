@@ -1,0 +1,25 @@
+<div class="header p-15  flex end-xs">
+  <ul *ngIf="isLogin">
+    <li>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+        <mat-icon class="profile col-primary-100 fs-35">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled>
+          <mat-icon>language</mat-icon>
+          <span>Config</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>password</mat-icon>
+          <span>Change Password</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </li>
+  </ul>
+
+
+</div>

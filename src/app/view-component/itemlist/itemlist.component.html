@@ -1,0 +1,42 @@
+<p class="fs-20 fw-medium col-accent-500 mt-10" *ngIf="findLable()">Results for {{findLable()|titlecase}}</p>
+<ng-container *ngIf="itemLists.length">
+  <div class="flex mt-30 flex-wrap middle-xs alignment">
+    <ng-container *ngFor="let item of itemLists">
+      <div class="product mr-20 mb-20">
+        <div class="product__card" (click)="showProduct(item)">
+          <p class="product__lable fs-12" [ngClass]="isTodayCreated(item.createdAt)?'bg-green':''">
+            {{isTodayCreated(item.createdAt)?'New':'Featured'}}</p>
+          <div class="product__image">
+            <img [src]="item?.image[0]?.url" alt="" srcset="">
+          </div>
+          <div class="product__details fs-14">
+            <div class="flex between-xs middle-xs">
+              <p class="col-accent-300">{{item.name |titlecase}}</p>
+              <div class="rating">
+                <button class="rating__star">★</button>
+                <span>{{item.ratings}}</span>
+              </div>
+            </div>
+            <div class="flex between-xs middle-xs mt-10">
+              <p>Price:<span class="ml-10">{{item.price|currency:"INR":"symbol"}}</span></p>
+              <button (click)="addToWishlist($event)" class="product__wishBtn">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home">
+                  favorite
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+</ng-container>
+<ng-container *ngIf="!itemLists.length&&serverResponse">
+  <div class="noList">
+    <div class="noList__nodata">
+      <img src="assets/images/no_result.svg" alt="SVG Image">
+    </div>
+    <p class="fs-16 mt-10 tac col-theme_bg-200">No Results Available</p>
+  </div>
+</ng-container>

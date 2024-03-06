@@ -1,0 +1,166 @@
+<section class="chat-window " *ngIf="isUserLoggedIn" [ngClass]="togglestatus ? 'docked' : ''">
+  <div class="chat-header " (click)="toggleClass()" [ngClass]="togglestatus ? 'offline' : 'online'">
+    <div class="flex">
+      <p>Live Chat
+      </p>
+      <p class="col-accent-500 fs-13" *ngIf="typingUser" style="color:green;">{{typingUser}}</p>
+    </div>
+    <span class="close"></span>
+  </div>
+  <div class="chat-body">
+    <div class="message-container">
+      <ng-container *ngIf="chatMessages.length==0">
+        <div class="message-bg">
+          <img src="assets/images/chat.svg" alt="" srcset="">
+          <p class="col-accent-500 fw-medium">lets chat with us....</p>
+        </div>
+
+      </ng-container>
+
+      <!-- loop -->
+      <!-- <ng-container *ngFor="let msg of chatMessages">
+        <div class="message" [ngClass]="msg.role!='admin'?'user':''">
+          <div class="profile">
+            <div *ngIf="msg.role=='admin'" class="initial-avatar" style="background:green;">A</div>
+            <div *ngIf="msg.role=='user'" class="initial-avatar">U</div>
+          </div>
+          <div class="message-meta">
+            <p>{{msg.date | date: 'EEE, d MMM h:mm a' }}</p>
+            <p>{{msg.name | titlecase}}</p>
+          </div>
+          <div class="message-content">
+            <p>{{msg.message}}</p>
+          </div>
+          <div class="separator__content">
+          </div>
+        </div>
+      </ng-container> -->
+
+      <ng-container *ngFor="let msg of finalChatData">
+        <div class="fs-13 day-lable" style="text-align:center">{{msg.date |titlecase}}</div>
+        <ng-container *ngFor="let msgQue of msg.messages">
+          <div class="message">
+            <div class="profile">
+              <div *ngIf="msgQue.role=='admin'" class="initial-avatar" style="background:green;">A</div>
+              <div *ngIf="msgQue.role=='user'" class="initial-avatar">U</div>
+            </div>
+            <div class="message-meta">
+              <p>{{msgQue.date | date: 'EEE, d MMM h:mm a' }}</p>
+              <p>{{msgQue.name | titlecase}}</p>
+            </div>
+            <div class="message-content">
+              <p>{{msgQue.message}}</p>
+            </div>
+            <!-- <div class="separator__content">
+            </div> -->
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!-- <div class="message user">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/men/47.jpg" />
+        </div>
+        <div class="message-meta">
+          <p>Morty</p>
+          <p>17:43</p>
+        </div>
+        <div class="message-content">
+          <p>I carrot belive you thought of that so quickly</p>
+        </div>
+        <div class="separator__content">
+        </div>
+      </div>
+      <div class="message ">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/women/72.jpg" />
+        </div>
+        <div class="message-meta">
+          <p>Isobel</p>
+          <p>17:43</p>
+        </div>
+        <div class="message-content">
+          <p>Lettuce rejoice over these puns</p>
+        </div>
+        <div class="separator__content">
+        </div>
+      </div>
+      <div class="message user">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/men/47.jpg" />
+        </div>
+        <div class="message-meta">
+          <p>Morty</p>
+          <p>17:43</p>
+        </div>
+        <div class="message-content">
+          <p>You seem like fun, we should turip sometime, seems like we'd be raisin the roof</p>
+        </div>
+        <div class="separator__content">
+        </div>
+      </div>
+      <div class="message">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/women/72.jpg" />
+        </div>
+        <div class="message-meta">
+          <p>Isobel</p>
+          <p>17:43</p>
+        </div>
+        <div class="message-content">
+          <p>For sure</p>
+          <p>We'd make such a great pear</p>
+        </div>
+        <div class="separator__content">
+        </div>
+      </div>
+      <div class="message user">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/men/47.jpg" />
+        </div>
+        <div class="message-meta">
+          <p>Morty</p>
+          <p>17:43</p>
+        </div>
+        <div class="message-content">
+          <p>Denying it is totally fruitless</p>
+          <p>We have such grape chemistry</p>
+        </div>
+        <div class="separator__content">
+        </div>
+      </div>
+      <div class="message">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/women/72.jpg" />
+        </div>
+        <div class="message-meta">
+          <p>Isobel</p>
+          <p>17:43</p>
+        </div>
+        <div class="message-content">
+          <p>Orange you glad you messaged me</p>
+        </div>
+        <div class="separator__content">
+        </div>
+      </div> -->
+      <!-- end loop -->
+    </div>
+  </div>
+  <div class="chat-footer">
+    <div class="progress-indicator hide">
+      <p>Isobel is typing</p>
+    </div>
+    <div class="form-area">
+      <form [formGroup]="chatFormGroup" (ngSubmit)="chatMaessage()">
+        <input type="text" formControlName="input" (input)="keyStrok()" />
+        <button>
+          <svg-icon symbol="send" w="23" h="20" style="color:#fff"></svg-icon>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- <div class="instructions">
+  <h1>CLICK ME<br />&searr;</h1>
+</div> -->

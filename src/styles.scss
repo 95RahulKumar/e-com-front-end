@@ -1,0 +1,508 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+@import "./assets/scss/pallete";
+$primary: mat.define-palette($primary, 500);
+$accent: mat.define-palette($accent, 500);
+
+// The warn palette is optional (defaults to red).
+$warn: mat.define-palette($warn);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($theme);
+
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/usemixin";
+@import "./assets/scss/reset";
+@import "./assets/scss/pallettevar";
+@import "./assets/scss/flex";
+@import "./assets/scss/grid";
+@import "./assets/scss/variousclasses";
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto";
+  outline: none;
+}
+
+body {
+  background-color: var(--col-theme_bg-700);
+  main {
+    color: #fff;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.mat-typography p {
+  margin: 0 !important;
+}
+p {
+  line-height: 1.2;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./assets/roboto-font/KFOlCnqEu92Fr1MmSU5fBBc4.woff2")
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/roboto-font/KFOmCnqEu92Fr1Mu4mxK.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/roboto-font/KFOlCnqEu92Fr1MmEU9fBBc4.woff2")
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+// .container{
+//   margin: 0 auto;
+//   width:90%;
+//   max-width:1100px;
+// }
+
+//adding aclass for modification in login popup
+//this class is pannel class
+.reset-panel {
+  .mat-dialog-container {
+    padding: 10px !important;
+    max-width: 430px;
+    background: #ffffff;
+    border-radius: 15px;
+  }
+}
+//custonm input class
+.custom-input-class {
+  input {
+    height: 40px;
+    outline: none;
+    min-width: 180px;
+    padding: 0 8px 0 8px;
+    border: 2px solid #212121;
+    border-radius: 3px;
+  }
+  textarea {
+    outline: none;
+    height: 100px;
+    min-width: 180px;
+    padding: 8px;
+    border: 2px solid #212121;
+    border-radius: 3px;
+  }
+  select {
+    height: 40px;
+    outline: none;
+    min-width: 246px;
+    padding: 0 8px;
+    border: 2px solid #212121;
+    border-radius: 3px;
+    & option {
+      /* Styling for the options */
+      background-color: #f2f2f2;
+      color: #212121;
+      font-family: "Inter";
+      padding: 8px;
+    }
+  }
+}
+
+.custom-input-class select.dropdown {
+  position: relative;
+}
+
+//file type input style
+.file-input {
+  display: none;
+}
+.upload-btn {
+  outline: none;
+  border: none;
+  border-radius: 50%;
+}
+
+//dialog close btn
+.dialog {
+  font-family: "Inter";
+  position: relative;
+  .dialog__close {
+    position: absolute;
+    top: -1px;
+    right: 1px;
+  }
+}
+
+//resetting the padding for mat-form-field
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 1rem;
+}
+
+.menu_link {
+  background: linear-gradient(
+    130deg,
+    var(--col-accent-500),
+    var(--col-accent-600)
+  );
+  border-radius:30px;
+}
+.submenu_link {
+  background: linear-gradient(130deg,  var(--col-accent-500),
+  var(--col-accent-600));
+  color: #fff !important;
+  border-radius: 10px;
+}
+//scrollbar styling
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  position: relative;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--col-theme_bg-100);
+  border: 0px none #ffffff;
+  border-radius: 0;
+}
+::-webkit-scrollbar-track {
+  background: var(--col-theme_bg-500);
+  border: 0px none #ffffff;
+  // border-radius: 50px;
+}
+
+//blur class for making overlay blure while opening popup
+.blur {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.mat-dialog-container {
+  box-shadow: none;
+}
+//responsive media-queries....
+
+.inter {
+  font-family: "Inter";
+}
+//mat table styling
+td.mat-cell,
+th.mat-header-cell {
+  text-align: left;
+  justify-content: center;
+  font-family: "Inter";
+  font-size: 15px;
+}
+
+.mat-table {
+  background: transparent !important;
+  overflow: hidden !important;
+}
+
+th.mat-header-cell:first-of-type {
+  border-radius: 10px 0 0 10px !important;
+}
+
+th.mat-header-cell:last-of-type {
+  border-radius: 0 10px 10px 0 !important;
+}
+.mat-header-cell {
+  // color: var(--col-primary-200)!important;
+  font-size: 14px !important;
+  text-align: left !important;
+  vertical-align: middle !important;
+}
+.mat-cell,
+.mat-footer-cell {
+  font-size: 14px !important;
+  text-align: left !important;
+  vertical-align: middle !important;
+}
+
+.custom-aligment {
+  .mat-header-cell {
+    // color: var(--col-primary-200)!important;
+    font-size: 14px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+  .mat-cell,
+  .mat-footer-cell {
+    font-size: 14px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+}
+
+.custom-hover {
+  tr.mat-row:hover {
+    box-shadow: none;
+  }
+}
+
+.mat-header-row {
+  background: linear-gradient(
+    to bottom,
+    var(--col-theme_bg-400) -49.76%,
+    var(--col-theme_bg-500) 190.96%
+  ) !important;
+  border-bottom-width: 0px !important;
+  font-weight: 600 !important;
+}
+td.mat-cell,
+td.mat-footer-cell {
+  background: var(--col-theme_bg-500) !important;
+  border-bottom-width: 0px !important;
+}
+th.mat-header-cell {
+  border-bottom-width: 0px !important;
+}
+.mat-table thead:after {
+  content: "";
+  display: block;
+  height: 9px;
+  position: sticky !important;
+  bottom: 0 !important;
+}
+tr.mat-row:hover {
+  box-shadow: 0 0 1px -1px #88888880, 0 1.5px 10px 1px #88888838;
+  transform: scale(1);
+}
+
+.mat-cell {
+  color: var(--col-primary-100) !important;
+}
+
+//mat paginator color change
+.mat-paginator-container {
+  background: black !important;
+}
+.table-width {
+  min-width: 1024px;
+}
+//mat-paginator styling{
+.mat-paginator-container {
+  background-color: var(--col-theme_bg-700) !important;
+  justify-content: flex-start !important;
+}
+//mat input field styling
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.7em 0 0.9em 0;
+}
+
+//change css for mat radio button
+
+.mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  .mat-radio-button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #212121;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: #212121;
+  background-color: #212121;
+}
+.mat-radio-outer-circle {
+  /* border-color: rgba(255, 255, 255, 0.7); */
+  border-color: #212121;
+}
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: rgb(255, 37, 37, 0.26);
+}
+
+.apexcharts-legend-text {
+  color: #fff !important;
+  font-size: 13px !important;
+}
+.chart-pos {
+  .apexcharts-legend.apx-legend-position-right {
+    justify-content: flex-end !important;
+  }
+}
+
+//mat-toggle-group
+
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: var(--col-accent-500);
+}
+
+//mat-list-styling
+.mat-list-single-selected-option {
+  border: 2px solid var(--col-accent-300);
+  border-radius: 5px;
+}
+.mat-list-base .mat-list-item,
+.mat-list-base .mat-list-option {
+  height: 40px !important;
+}
+
+.custom-checkbox {
+  .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: var(--col-accent-300);
+  }
+
+  .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    color: var(--col-accent-300);
+    background-color: var(--col-accent-300);
+  }
+  .mat-radio-outer-circle {
+    border-color: #fff;
+    /* border-color: rgba(255, 255, 255, 0.7); */
+  }
+  .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: var(--col-accent-300);
+  }
+}
+
+//setting styling for mat calender
+.mat-calendar-header {
+  padding: 0px 8px 0 8px !important;
+}
+.mat-datepicker-content .mat-calendar {
+  width: 308px !important;
+  height: 395px !important;
+}
+.mat-datepicker-content-touch .mat-datepicker-content-container {
+  width: auto !important;
+  height: auto !important;
+}
+.mat-calendar-body-selected {
+  background-color: var(--col-accent-500) !important;
+  color: #fff !important;
+}
+.mat-calendar-body-today.mat-calendar-body-selected {
+  box-shadow: inset 0 0 0 1px #ffff !important;
+}
+.mat-calendar-body-active > .mat-calendar-body-today {
+  color: #fff !important;
+  background-color: var(--col-accent-800) !important;
+}
+.mat-calendar-body-in-range::before {
+  background: #048846a8 !important;
+}
+.mat-calendar-previous-button,
+.mat-calendar-next-button {
+  color: var(--col-accent-500) !important;
+}
+.mat-calendar-table-header {
+  color: var(--col-accent-500) !important;
+}
+.mat-datepicker-content {
+  border: 1px solid #7b7878;
+  background-color: #1c1b1b !important;
+}
+
+.custom-select {
+  .mat-form-field {
+    width: 250px !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #212121 !important;
+    border: 0.5px solid #212121 !important;
+    border-radius: 5px;
+  }
+  /* Font color */
+  .mat-select-arrow {
+    color: #000 !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 6px 0 -17px 0 !important;
+  }
+  .mat-select-placeholder {
+    color: #000 !important;
+  }
+  .mat-select-value {
+    color: #212121 !important;
+    font-weight: 600 !important;
+    font-family: "Inter" !important;
+  }
+  input.mat-input-element {
+    color: #212121 !important;
+    font-family: "Inter" !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.3em 0 0.5em 0 !important;
+  }
+}
+#custom-datepicker {
+  margin-bottom: -70px !important;
+}
+app-loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:99999;
+    background-color: rgba(0, 0, 0, 0.688);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+}

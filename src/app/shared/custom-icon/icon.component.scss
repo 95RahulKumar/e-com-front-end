@@ -1,0 +1,10 @@
+:host {
+  display:inline-flex;
+  align-items: center;
+
+  svg {
+    display: inline-block;
+    all: inherit;
+    cursor: pointer;
+  }
+}

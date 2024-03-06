@@ -1,0 +1,19 @@
+<!-- <app-button color="primary" size="md" (click)="toast()">Register</app-button> -->
+<div class="category">
+  <div class="category__list">
+    <h1 class="fs-23 mt-30">Hello</h1>
+    <p class="fs-18 mb-10">Welcome to ekart please select a category</p>
+    <div class="category__item">
+      <ng-container *ngFor="let item of availableCategories">
+        <div class="category__box" (click)="nevigateRoute(item)">
+          <svg-icon [symbol]="item?.icon" h="20"></svg-icon>
+          <span>{{item?.title | titlecase}}</span>
+        </div>
+      </ng-container>
+    </div>
+    <div *ngIf="availableCategories.length==0" class="category__nodata">
+      <img src="assets/images/no_data.svg" alt="SVG Image">
+      <p class="fs-16  tac col-theme_bg-200">No Category Available</p>
+    </div>
+  </div>
+</div>

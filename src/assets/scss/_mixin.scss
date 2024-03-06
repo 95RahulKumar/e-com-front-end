@@ -1,0 +1,52 @@
+//mixines for font-sizes
+@mixin font-size($prefix,$step,$range,$unit){
+    @for $i from 1 through $range {
+        .#{$prefix}#{$i}{
+            font-size:#{$i*$step}#{$unit};
+        }
+    }
+}
+
+//mixin for padding generation
+@mixin padding($attr,$prefix,$step,$range,$unit){
+    @for $i from 1 through $range {
+        .#{$prefix}#{$i}{
+            #{$attr}:#{$i}#{$unit};
+        }
+    }
+}
+// mixin for font-weight generation
+@mixin fontweight($attr,$prefix,$step,$range){
+  @for $i from 4 through $range {
+      .#{$prefix}#{$i*100}{
+          #{$attr}:#{$i*100};
+      }
+  }
+}
+//mixin for margin generation
+@mixin margin($attr,$prefix,$step,$range,$unit){
+    @for $i from 1 through $range {
+        .#{$prefix}#{$i}{
+            #{$attr}:#{$i}#{$unit};
+        }
+    }
+}
+
+//mixin for generate classes with color pallette
+@mixin theme-class($map, $selector: '', $property: '',$palate:'') {
+    $selector: if($selector == '' and &, &, $selector);
+
+    @each $key, $value in $map {
+        @if type-of($value) == map {
+            $palate:on-#{$palate};
+            $selector: selector-append($selector, #{$palate});
+            @include theme-class($value, $selector, $property) {
+                @content;
+            }
+        } @else {
+          @at-root #{$selector}#{$palate}-#{$key} {
+                #{$property}: $value;
+            };
+        };
+    };
+};

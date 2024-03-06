@@ -1,0 +1,10 @@
+<div class="dialog">
+  <svg-icon class="dialog__close col-warn-500" symbol="cancle" w='25' h="25" (click)="closeDialog()"></svg-icon>
+  <h2 class="tac text-color fs-24 mt-10 mb-25 fw-semibold" tabindex="1">{{mergeData.title}}</h2>
+  <p class="tac ">{{mergeData.message}}</p>
+  <ng-container *ngTemplateOutlet="mergeData?.template"></ng-container>
+  <div class="flex middle-xs arround-xs mt-35 mb-20" *ngIf="mergeData?.hidebtn">
+    <app-button color="primary" [mat-dialog-close]="false" size="sm">Cancle</app-button>
+    <app-button color="primary" [mat-dialog-close]="true" size="sm">Proceed</app-button>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+[
+  {
+    "text": "all catogories",
+    "link": "category",
+    "isActive": false
+  },
+  {
+    "text": "offer zone",
+    "link": "offer",
+    "isActive": false
+  },
+  {
+    "text": "home appliances",
+    "link": null,
+    "isActive": false,
+    "submenu": [
+      {
+        "text": "Fan",
+        "link": "fan",
+        "isActive": false
+      },
+      {
+        "text": "Printer",
+        "link": "printer",
+        "isActive": false
+      },
+      {
+        "text": "Ac",
+        "link": "ac",
+        "isActive": false
+      }
+    ]
+  },
+  {
+    "text": "Home Entertainment",
+    "link": null,
+    "isActive": false,
+    "submenu": [
+      {
+        "text": "Laptop",
+        "link": "laptop",
+        "isActive": false
+      },
+      {
+        "text": "Camera",
+        "link": "camera",
+        "isActive": false
+      },
+      {
+        "text": "Smart Watch",
+        "link": "smartwatch",
+        "isActive": false
+      }
+    ]
+  },
+  {
+    "text": "Mobiles & Accessories",
+    "link": null,
+    "isActive": false,
+    "submenu": [
+      {
+        "text": "Mobile",
+        "link": "mobile",
+        "isActive": false
+      },
+      {
+        "text": "Power bank",
+        "link": "power-bank",
+        "isActive": false
+      },
+      {
+        "text": "Antivirus",
+        "link": "antivirus",
+        "isActive": false
+      }
+    ]
+  },
+  {
+    "text": "Vegitables",
+    "link": "veg",
+    "isActive": false
+  },
+  {
+    "text": "my order",
+    "link": "order",
+    "isActive": false
+  },
+  {
+    "text": "my cart",
+    "link": "cart",
+    "isActive": false
+  },
+  {
+    "text": "my wishlist",
+    "link": "wishlist",
+    "isActive": false
+  },
+  {
+    "text": "Login",
+    "link": null,
+    "isActive": false
+  },
+  {
+    "text": "my notification",
+    "link": "notification",
+    "isActive": false
+  }
+]

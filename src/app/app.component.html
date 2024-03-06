@@ -1,0 +1,71 @@
+<div class="app-layout flex flex-col center-xs" [class.is_open]="isOpen">
+  <app-header></app-header>
+
+  <app-sidebar></app-sidebar>
+  <main>
+    <router-outlet></router-outlet>
+    <app-chat></app-chat>
+  </main>
+  <app-footer></app-footer>
+</div>
+<app-loader *ngIf="showLoader"></app-loader>
+<app-status-message></app-status-message>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h1 class="col-primary-200 fs-18 mt-10 mb-10">App component </h1>
+<section class="example-section">
+  <mat-checkbox class="example-margin">Checked</mat-checkbox>
+  <mat-checkbox class="example-margin">Indeterminate</mat-checkbox>
+</section>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Ex. pat@example.com">
+    <mat-hint>Errors appear instantly!</mat-hint>
+
+
+  </mat-form-field>
+</form>
+<mat-form-field appearance="fill">
+  <mat-label>Select an option</mat-label>
+  <mat-select disableRipple>
+    <mat-option value="1">Option 1</mat-option>
+    <mat-option value="2">Option 2</mat-option>
+    <mat-option value="3">Option 3</mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-raised-button color="primary">Primary</button>
+<button mat-raised-button color="accent">Accent</button>
+<button mat-raised-button color="warn">Accent</button>
+<button mat-stroked-button color="primary">Primary</button>
+<button mat-stroked-button color="accent">Accent</button>
+<button mat-stroked-button color="warn">Accent</button>
+<button mat-stroked-button color="primary" (click)="openModel()">openPopup</button>
+
+<svg-icon class="col-warn-500" symbol="facebook" h="20"></svg-icon> -->

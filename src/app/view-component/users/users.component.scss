@@ -1,0 +1,22 @@
+.header{
+  width:190px;
+  height:140px;
+  background: linear-gradient(to bottom, var(--col-theme_bg-400),var(--col-theme_bg-500));
+  border-radius: 15px;
+  &__count{
+    display: inline-flex;
+    min-height:40px;
+    min-width: 40px;
+
+    border-radius: 50%;
+    background: linear-gradient(to bottom, var(--col-theme_bg-300),var(--col-theme_bg-500));
+  }
+}
+
+
+.position_icon{
+  position: absolute ;
+  top: -6px ;
+  right: 10px ;
+
+}

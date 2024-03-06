@@ -1,0 +1,5 @@
+<button [disabled]="isBtnDisabled" class="btn" [type]="btntype" [class.invert]="isInverted"
+  [class.primary]="color=='primary'" [class.processing]="color=='Proccessing'" [class.delivered]="color=='Delivered'"
+  [class.sm]="size=='sm'" [class.large]="size=='large'" [class.md]="'md'">
+  <ng-content></ng-content>
+</button>

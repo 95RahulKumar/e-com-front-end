@@ -1,0 +1,197 @@
+<div *ngIf="ORDERS_DATA.length" class="header inter flex flex-col  middle-xs p-15">
+  <h3 class="fs-28 fw-semibold col-accent-500 mt-15 mb-10">
+    <span class="header__count  middle-xs center-xs ">{{ORDERS_DATA.length}}</span>
+  </h3>
+  <p class="fs-20 fw-semibold">Total Orders</p>
+</div>
+<!-- <h3 class="fs-24 fw-semibold col-accent-500 mt-10">Edit Orders</h3> -->
+<div class="ov-auto">
+  <table mat-table *ngIf="dataSource?.data?.length" [dataSource]="dataSource" multiTemplateDataRows
+    class="mat-elevation-z0 mt-15 table-width">
+    <colgroup>
+      <col width="150">
+      <col width="150">
+      <col width="150">
+      <col width="150">
+      <col width="150">
+      <col width="120">
+      <col width="120">
+      <col width="100">
+      <col width="200">
+      <col width="150">
+      <col width="150">
+    </colgroup>
+    <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay"> -->
+    <!-- <ng-container *ngIf="column !== 'action'; else action">
+      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{element?.user?.name | titlecase}}</td>
+    </ng-container>
+    <ng-container matColumnDef="OrderItems">
+      <th mat-header-cell *matHeaderCellDef>OrderItems</th>
+      <td mat-cell *matCellDef="let element">
+        <!-- <svg-icon symbol="edit" w='20' h="20"
+          (click)=""></svg-icon> -->
+        <button mat-icon-button class="col-accent-500"
+          (click)="expandedElement = expandedElement === element ? null : element;">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="PaymentStatus">
+      <th mat-header-cell *matHeaderCellDef>PaymentStatus</th>
+      <td mat-cell *matCellDef="let element">
+        <span [ngClass]="element?.paymentInfo?.status===paymentStatus.Success?'payment-success':'payment-pending'">
+          {{element?.paymentInfo?.status | titlecase}}
+        </span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Address">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let element">{{element?.shipingInfo?.address}}</td>
+    </ng-container>
+    <ng-container matColumnDef="PaidAt">
+      <th mat-header-cell *matHeaderCellDef>PaidAt</th>
+      <td mat-cell *matCellDef="let element">{{element?.paidAt|date:'shortDate'}}</td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="Price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let element">{{element?.itemsPrice}}</td>
+    </ng-container> -->
+    <ng-container matColumnDef="Tax">
+      <th mat-header-cell *matHeaderCellDef>Tax</th>
+      <td mat-cell *matCellDef="let element">{{element?.taxPrice}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ShipingPrice">
+      <th mat-header-cell *matHeaderCellDef>ShipingPrice</th>
+      <td mat-cell *matCellDef="let element">{{element?.shipingPrice}}</td>
+    </ng-container>
+    <ng-container matColumnDef="TotalAmount">
+      <th mat-header-cell *matHeaderCellDef>TotalAmount</th>
+      <td mat-cell *matCellDef="let element">{{element?.totalPrice}}</td>
+    </ng-container>
+    <ng-container matColumnDef="OrderStatus">
+      <th mat-header-cell *matHeaderCellDef>OrderStatus</th>
+      <td mat-cell *matCellDef="let element;let index=index">
+
+        <app-button [isBtnDisabled]="element?.orderStatus===orderStatusEnum.Delivered"
+          [color]="element?.orderStatus===orderStatusEnum.Proccessing?'Proccessing':'Delivered'" size="large">
+          <span (click)="updateOrderStatus(index,element?._id);">
+            {{element?.orderStatus}}
+          </span>
+        </app-button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="CreatedAt">
+      <th mat-header-cell *matHeaderCellDef>CreatedAt</th>
+      <td mat-cell *matCellDef="let element">{{element?.createdAt |date:'shortDate'}}</td>
+    </ng-container>
+    <!-- <ng-template #action>
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <svg-icon symbol="arrow-circle" w='25' h="25"></svg-icon>
+    </ng-template> -->
+    <!-- </ng-container> -->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let element;let i=index">
+        <svg-icon class="col-warn-500" symbol="delete" w='20' h="20" (click)="deleteOrder(element?._id)"></svg-icon>
+      </td>
+    </ng-container>
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <!-- <div class="example-element-diagram">
+            <div class="example-element-position">jjojio </div>
+            <div class="example-element-symbol">iiiiii</div>
+            <div class="example-element-name"> jjjjjkii </div>
+            <div class="example-element-weight"> pppppp </div>
+          </div>
+          <div class="example-element-description">
+            {{element.description}}
+            <span class="example-element-description-attribution"> -- Wikipedia </span>
+          </div> -->
+          <table *ngIf="this.detailsDatasource.data.length" mat-table [dataSource]="detailsDatasource"
+            class="mat-elevation-z0 w-100 mt-10 table-width  custom-hover custom-aligment">
+            <colgroup>
+              <col width="150">
+              <col width="300">
+              <col width="300">
+              <col width="400">
+
+            </colgroup>
+            <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Id</th>
+              <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="productId">
+              <th mat-header-cell *matHeaderCellDef>ProductId</th>
+              <td mat-cell *matCellDef="let element;let i=index">{{element.product}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.name | titlecase}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef>Quantity </th>
+              <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayforOrderItems"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplayforOrderItems;"></tr>
+          </table>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element">
+    </tr>
+    <!-- <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row">
+    </tr> -->
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+</div>
+
+
+<!-- order Trmplate -->
+<ng-template #editOrderTemp>
+  <div class="text-color flex inter flex-col">
+    <form [formGroup]="editOrderForm" class="pl-15 pr-15 " (ngSubmit)="orderStatusFormSubmit()">
+      <div class=" flex flex-col ">
+        <div class="flex flex-col between-xs  ">
+          <p class=" text-color order-status semi-bold mr-10">Current Order Staus</p>
+          <mat-radio-group aria-label="Select an option" class=" text-color" formControlName="status">
+            <mat-radio-button value="Proccessing" checked="true">Proccessing</mat-radio-button>
+            <mat-radio-button value="Delivered">Delivered</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="flex middle-xs center-xs mt-15 mb-10">
+        <app-button color="primary" btntype="submit" size="large"
+          [isBtnDisabled]="editOrderForm.invalid">Update</app-button>
+      </div>
+    </form>
+  </div>
+</ng-template>

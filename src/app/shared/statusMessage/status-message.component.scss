@@ -1,0 +1,30 @@
+.overlay_status {
+  width: 300px;
+  height: auto;
+  position: fixed;
+  top: 70px;
+  right: 0px;
+  z-index:1001;
+  color: #fff;
+  color: #fff;
+  fill: #fff;
+  padding: 20px 0;
+  overflow: hidden;
+}
+.notification {
+
+  position: relative;
+  width: 100%;
+  padding: 10px 13px 10px 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  color:#fff;
+  // box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+.success-background{
+  background:#0e8727;
+}
+.failure-background{
+  background:#b11a1a;
+}

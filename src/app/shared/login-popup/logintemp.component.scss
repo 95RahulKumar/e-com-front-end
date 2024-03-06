@@ -1,0 +1,27 @@
+.form-link{
+  color:var(--col-accent-500);
+  cursor:pointer;
+}
+
+
+
+
+
+
+.password-container {
+  position: relative;
+}
+
+.password-container input {
+}
+
+.password-container button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

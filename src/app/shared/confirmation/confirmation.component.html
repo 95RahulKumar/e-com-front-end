@@ -1,0 +1,17 @@
+<div class="header inter">
+  <div class="flex middle-xs center-xs mb-15">
+    <svg-icon *ngIf="messageTypeEnum.SUCCESS==mergeData.type" symbol="success" class="col-accent-500" w='33' h="35">
+    </svg-icon>
+    <svg-icon *ngIf="messageTypeEnum.INFO==mergeData.type" symbol="info" w='33' h="35" style="color:orange">
+    </svg-icon>
+    <svg-icon *ngIf="messageTypeEnum.WARN==mergeData.type" symbol="danger" class="col-warn-500" w='33' h="35">
+    </svg-icon>
+  </div>
+  <h2 class="tac mb-15">{{mergeData.title}}</h2>
+  <p class="tac ">{{mergeData.message}}</p>
+  <ng-container *ngTemplateOutlet="mergeData?.template"></ng-container>
+  <div class="flex middle-xs arround-xs mt-30 mb-20">
+    <app-button [isInverted]=true color="primary" [mat-dialog-close]="false" size="sm">Cancle</app-button>
+    <app-button [isInverted]=true color="primary" [mat-dialog-close]="true" size="sm">Proceed</app-button>
+  </div>
+</div>

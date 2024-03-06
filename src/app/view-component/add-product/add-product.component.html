@@ -1,0 +1,93 @@
+<h3 class="fs-24 fw-semibold inter col-accent-500 mt-10">Add Products</h3>
+<div class="mt-20 form-layout inter">
+  <form class="flex flex-col " [formGroup]="createProductForm" (ngSubmit)="createProductSubmit()" #form="ngForm">
+    <div class="form-layout addproduct">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="name.invalid&&name.touched">
+          <mat-error *ngIf="name.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price">
+        <mat-error *ngIf="price.invalid&&price.touched">
+          <mat-error *ngIf="price.hasError('required')">
+            Price is required
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option [value]="category" *ngFor="let category of CATEGORY">
+            {{category}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="category.invalid&&category.touched">
+          <mat-error *ngIf="category.hasError('required')">
+            Category is required
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Stock</mat-label>
+        <mat-select formControlName="stock">
+          <mat-option [value]="stock" *ngFor="let stock of STOCK">
+            {{stock}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="stock.invalid&&stock.touched">
+          <mat-error *ngIf="stock.hasError('required')">
+            Stock is required
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea rows="7" formControlName="description" matInput></textarea>
+        <mat-error *ngIf="description.invalid&&description.touched">
+          <mat-error *ngIf="description.hasError('required')">
+            Description is required
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <div class="preview-image">
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Preview Image">
+      </div>
+    </div>
+
+    <div>
+      <h1 class="col-accent-500">Drop Your Image Here</h1>
+      <div class="image-drop mt-15 mr-15">
+        <input type="file" multiple (click)="fileUpload.value = null" class=" file" (change)="onFileChange($event)"
+          #fileUpload />
+        <svg-icon *ngIf="!fileName" (click)="fileUpload.click()" symbol="file" w='25' h="25"
+          style="position: absolute; top:25%"></svg-icon>
+        <p *ngIf="!fileName" (click)="fileUpload.click()" class="col-accent-500" style="position: absolute;">+ Choose
+          Product Photo</p>
+        <div *ngIf="fileName" class="file-name">
+          <svg-icon class="col-warn-500" (click)="clearImageData()" symbol="slash" w='25' h="25"
+            style="position: absolute; top:25%"></svg-icon>
+          <p class="col-warn-500">{{fileName}}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <app-button class="mt-15" color="primary" [isBtnDisabled]="createProductForm.invalid" [isInverted]=true
+      btntype="submit" size="md">Update</app-button>
+  </form>
+</div>

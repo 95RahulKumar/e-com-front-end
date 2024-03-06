@@ -1,0 +1,9 @@
+<div class="picker_btn_wrapper" #parset>
+  <button *ngFor="let item of customPresets;let i=index" class="picker_btn" (click)="selectRange(item)"
+    [attr.data-index]="i">
+    {{ item }}
+  </button>
+</div>
+
+
+<mat-calendar-header></mat-calendar-header>

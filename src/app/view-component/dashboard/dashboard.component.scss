@@ -1,0 +1,85 @@
+.details{
+  display:grid;
+  grid-template-columns:repeat(3,max-content);
+  gap: 8px;
+  // width: 60vw;
+  &__card{
+    display:flex;
+    background:var(--col-theme_bg-500);
+    padding:15px;
+    border-radius: 10px;
+  }
+  &__avatar{
+    padding: 7px;
+    background:#ff0000ad;
+    border-radius: 50%;
+    width: max-content;
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__avatar--green{
+    background:var(--col-accent-500);
+  }
+  &__avatar--yellow{
+    background:rgb(0, 115, 255);
+  }
+  &__des{
+    p:first-child{
+      margin-bottom:5px;
+    }
+  }
+}
+.apex-charts{
+      padding: 25px 0 25px 0;
+      border-radius: 15px;
+      max-width:360px;
+      background: linear-gradient(130deg, var(--col-theme_bg-400), var(--col-theme_bg-600));
+}
+.charts-container{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.chart-container{
+  width:55vw;
+  height:280px;
+  padding: 10px;
+    border-radius: 3px;
+    background: linear-gradient(130deg, var(--col-theme_bg-500), var(--col-theme_bg-600));
+}
+@media screen and (max-width:1024px) {
+  .charts-container{
+    gap:0;
+    grid-template-columns:repeat(1,1fr);
+        justify-items: center;
+  }
+  .chart-container{
+    width:90vw;
+    height: 250px;
+  }
+  .apex-charts {
+    padding: 15px 0 15px 0;
+}
+.outer-container{
+  justify-content: center;
+}
+}
+@media screen and (max-width:600px) {
+  .details{
+    display:grid;
+    grid-template-columns:repeat(2,max-content);
+    &__card{
+      padding:10px;
+    }
+  }
+
+}
+@media screen and (max-width:415px) {
+  // .details{
+  //   display:grid;
+  //   grid-template-columns:repeat(1,1fr);
+  // }
+}
+

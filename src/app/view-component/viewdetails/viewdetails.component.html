@@ -1,0 +1,74 @@
+<dir class="flex middle-xs">
+  <button class="back-btn mr-10" (click)="goBack()">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home">
+      arrow_back
+    </mat-icon>
+  </button>
+  <p>Back</p>
+</dir>
+<div class="flex flex-wrap center-xs">
+  <div class="flex mt-20">
+    <div class="overview-pic mr-15">
+      <img [src]="viewObject.image[0].url" alt="" srcset="">
+    </div>
+    <div class="flex flex-col">
+      <div class="image " (click)="showModelPopup(viewObject.image[0].url)">
+        <img [src]="viewObject.image[0].url" alt="" srcset="">
+      </div>
+      <div class="flex mt-10">
+        <app-button [isInverted]="true" class="mr-10" (click)="addToCartBtn()" color="primary" size="sm">Add To
+          Cart</app-button>
+        <app-button [isInverted]="true" color="primary" (click)="buyNowBtn()" size="sm">Buy Now</app-button>
+      </div>
+    </div>
+
+  </div>
+  <div class="details mt-20 ml-20 p-10">
+    <p class="tal mb-10  fw-semibold">{{viewObject.name | titlecase}}</p>
+    <div class="tub">
+      <div class="tub__left">
+        <p>Category</p>
+      </div>
+      <div class="tub__right">
+        <p>{{viewObject.category |titlecase}}</p>
+      </div>
+    </div>
+    <div class="tub">
+      <div class="tub__left">
+        <p>Added At</p>
+      </div>
+      <div class="tub__right">
+        <p>{{viewObject.createdAt |date:'fullDate'}}</p>
+      </div>
+    </div>
+    <div class="tub">
+      <div class="tub__left">
+        <p>Description</p>
+      </div>
+      <div class="tub__right">
+        <p>{{viewObject.description |titlecase}}</p>
+      </div>
+    </div>
+    <div class="tub">
+      <div class="tub__left">
+        <p>Available Stock</p>
+      </div>
+      <div class="tub__right">
+        <p>{{viewObject.stock }}</p>
+      </div>
+    </div>
+    <div class="tub">
+      <div class="tub__left">
+        <p>Price</p>
+      </div>
+      <div class="tub__right">
+        <p>{{viewObject.price |currency:"INR":"symbol"}}</p>
+      </div>
+    </div>
+    <div class="flex middle-xs">
+      <svg-icon symbol="edit" w='23' h="23" class="col-accent-500" (click)="writeReviews()"></svg-icon>
+      <p class="col-accent-500" style="margin-left:5px;">Write Reviews...</p>
+    </div>
+  </div>
+
+</div>

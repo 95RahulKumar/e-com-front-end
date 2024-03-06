@@ -1,0 +1,22 @@
+<div class="overlay_status" [@visibilityChanged]="status">
+  <ng-container *ngFor="let m of messageQueue">
+    <ng-container *ngIf="m?.show">
+      <div [@notificationAnimation] class="notification"
+        [ngClass]="msgType=='success'?'success-background':'failure-background'">
+        <div class="flex">
+          <svg-icon *ngIf="msgType=='success'" symbol="check-circle" w='20' h="20"
+            style="color:#fff;margin-right:6px;"></svg-icon>
+          <svg-icon *ngIf="msgType=='fail'" symbol="close" w='20' h="20"
+            style="color:#fff;margin-right:6px;"></svg-icon>
+          <div class="flex-col ">
+            <div class="fs-16" *ngIf="msgType=='success'" style="margin-bottom:2px;">Success</div>
+            <div class="fs-16" *ngIf="msgType=='fail'" style="margin-bottom:2px;">Failed</div>
+            <span class="fs-14">
+              {{ m?.message }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,29 @@
+[
+  {
+    "text": "add Product",
+    "link": "product",
+    "isActive": false
+  },
+  {
+    "text": "All Product",
+    "link": "products",
+    "isActive": false
+  },
+  {
+    "text": "All User",
+    "link": "users",
+    "isActive": false
+  },
+
+  {
+    "text": "All order",
+    "link": "orders",
+    "isActive": false
+  },
+
+  {
+    "text": "dashboard",
+    "link": "dashboard",
+    "isActive": false
+  }
+]

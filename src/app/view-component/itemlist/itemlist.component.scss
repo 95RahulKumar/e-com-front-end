@@ -1,0 +1,131 @@
+.noList{
+  width:100%;
+  height:500px;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: column;
+  &__nodata{
+    height:300px;
+    width:300px;
+    img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+    }
+
+  }
+}
+.product{
+  max-width: 200px;
+  background:#ffffff14;
+  border-radius:9px;
+  position:relative;
+  transition: box-shadow 0.4s ease-in-out;
+  &__lable{
+    position:absolute;
+    top:5%;
+    left:5%;
+    background: blueviolet;
+    border-radius: 10px;
+    padding:3px 6px 3px;
+    z-index: 11;
+  }
+  &__wishBtn{
+    // position:absolute;
+    // top:3%;
+    // right:5%;
+    background:transparent;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    z-index: 11;
+    border:none;
+    outline: none;
+    font-size: 13px;
+    color:#ffffffb5;
+    transition: color 0.3s ease-in-out;
+  }
+  &__wishBtn:hover{
+    color:pink;
+  }
+ &__image{
+  width: 200px;
+  height: 220px;
+  overflow: hidden;
+  border-radius:15px;
+  img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    transition: scale 0.3s cubic-bezier(0.525, 0.145, 0.595, 0.600);
+  }
+  img:hover{
+    scale:1.1;
+  }
+ }
+ &__details{
+  padding:10px;
+ }
+}
+
+.product:hover{
+
+  box-shadow: rgba(109, 109, 109, 0.3) 0px 1px 2px 0px, rgba(197, 192, 192, 0.15) 0px 1px 3px 1px;
+ cursor: pointer;
+}
+
+
+@media screen and (max-width:1080px) {
+.alignment{
+   justify-content: center;
+}
+}
+
+
+
+
+
+
+
+
+//star rating style
+
+.rating {
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.rating__star {
+  color: #eab308;
+}
+
+/*
+Make all previous stars selected when hover on a star
+Note that we use \`flex-direction: row-reverse\` on the container
+*/
+.rating__star:hover:before,
+.rating__star:hover ~ .rating__star:before {
+  color: #eab308;
+  content: '★';
+  left: 0;
+  position: absolute;
+}
+
+.rating__star {
+  font-size:20px;
+
+  /* Reset styles for button */
+  background-color: transparent;
+  border: transparent;
+  margin: 0 2px;
+  padding: 0;
+
+  /* Used to position the hover state */
+  position: relative;
+}
+.bg-green{
+  background: green;
+}

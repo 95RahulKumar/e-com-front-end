@@ -1,0 +1,189 @@
+<div class="dialog">
+  <svg-icon class="dialog__close col-warn-500" symbol="cancle" w='25' h="25" (click)="closeDialog()"></svg-icon>
+  <div class="">
+    <div class="text-color ">
+      <!-- User Registration Form -->
+      <div class="" *ngIf="!isLoginForm && !isForgotPassword">
+        <h3 class="tac text-color fs-24 mt-10 mb-30 fw-semibold">Registration Form</h3>
+        <form [formGroup]="userRegistrationForm" class="w-100 mt-10 pl-15 pr-15 pb-20"
+          (ngSubmit)="registerFormSubmit()">
+          <!-- <mat-form-field class="w-100 custom-input-class text-color"> -->
+          <div class=" flex between-xs mt-10 ">
+            <p class=" fw-semibold" for="Name">Name :</p>
+            <div class="flex flex-col custom-input-class">
+              <input type="text" class="ml-20  fs-16 fw-semibold" formControlName="name">
+              <ng-container
+                *ngIf="userRegistrationForm.get('name').invalid && userRegistrationForm.get('name').touched">
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userRegistrationForm.get('name').hasError('required')">
+                  Name is required
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <!-- </mat-form-field> -->
+          <div class=" flex between-xs mt-10 ">
+            <p class=" fw-semibold" for="Name">Email :</p>
+            <div class="flex flex-col custom-input-class">
+              <input type="text" class="ml-20  fs-16 fw-semibold" formControlName="email">
+              <ng-container
+                *ngIf="userRegistrationForm.get('email').invalid && userRegistrationForm.get('email').touched">
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userRegistrationForm.get('email').hasError('required')">
+                  Email is required
+                </p>
+                <p style="color: #ff0000;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userRegistrationForm.get('email').errors['pattern']">
+                  Please enter a valid email
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <div class=" flex between-xs mt-10 ">
+            <p class=" fw-semibold" for="Name">Password :</p>
+            <div class="flex flex-col custom-input-class ">
+              <div class="password-container">
+                <input [type]="hidePassword ? 'password' : 'text'" class="ml-20  fs-16 fw-semibold"
+                  formControlName="password">
+                <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                  <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </div>
+              <ng-container
+                *ngIf="userRegistrationForm.get('password').invalid && userRegistrationForm.get('password').touched">
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userRegistrationForm.get('password').hasError('required')">
+                  Password is required
+                </p>
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userRegistrationForm.get('password').errors['minlength']">
+                  Password shoud be minimum 8 char
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <!-- gender selection -->
+          <div class=" flex between-xs mt-10 ">
+            <p class=" fw-semibold" for="Name">Gender :</p>
+            <div class="flex flex-col custom-select">
+              <mat-form-field appearance="outline" style="min-width:180px;">
+                <mat-select class="" formControlName="gender">
+                  <mat-option *ngFor="let gender of GENDER" [value]="gender | titlecase">
+                    {{gender | titlecase}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <input type="text" class="ml-20  fs-16 fw-semibold" > -->
+              <ng-container
+                *ngIf="userRegistrationForm.get('gender').invalid && userRegistrationForm.get('gender').touched">
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userRegistrationForm.get('gender').hasError('required')">
+                  Gender is required
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <!-- ----- -->
+          <div class=" flex  mt-10">
+            <p class=" fw-semibold middle-xs" for="Name">Profile Pic :</p>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <div class="file-upload ml-20 flex middle-xs">
+              <button type="button" color="primary" class="upload-btn p-10 mr-5" (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+              </button>
+              <div class="middle-xs">{{fileName || "No file uploaded yet."}}</div>
+            </div>
+          </div>
+          <p class="text-color mt-30">Already have an account ?<span (click)="toggleUserForm()" class="form-link">
+              Login Here</span></p>
+          <div class="flex middle-xs center-xs mt-30">
+            <app-button color="primary" btntype="submit" size="md"
+              [isBtnDisabled]="userRegistrationForm.invalid">Register</app-button>
+          </div>
+        </form>
+      </div>
+
+      <!-- User Login Form -->
+      <div class="" *ngIf="isLoginForm && !isForgotPassword">
+        <h3 class="tac text-color fs-24 mt-10 mb-30 fw-semibold" tabindex="1">Loing Form</h3>
+        <form [formGroup]="userLoginForm" class="w-100 mt-10 pl-15 pr-15 pb-20" (ngSubmit)="loginFormSubmit()">
+          <div class=" flex between-xs mt-10 mb-20">
+            <p class=" fw-semibold" for="Name">Email :</p>
+            <div class="flex flex-col custom-input-class">
+              <input type="text" class="ml-20  fs-16 fw-semibold" formControlName="email">
+              <ng-container *ngIf="userLoginForm.get('email').invalid && userLoginForm.get('email').touched">
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userLoginForm.get('email').hasError('required')">
+                  Email is required
+                </p>
+                <p style="color: #ff0000;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userLoginForm.get('email').errors['pattern']">
+                  Please enter a valid email
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <div class=" flex between-xs mt-10 mb-30">
+            <p class=" fw-semibold" for="Name">Password :</p>
+            <div class="flex flex-col custom-input-class">
+              <div class="password-container">
+                <input [type]="hidePassword ? 'password' : 'text'" class="ml-20  fs-16 fw-semibold"
+                  formControlName="password">
+                <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                  <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </div>
+              <ng-container *ngIf="userLoginForm.get('password').invalid && userLoginForm.get('password').touched">
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userLoginForm.get('password').hasError('required')">
+                  Password is required
+                </p>
+                <p style="color: red;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="userLoginForm.get('password').errors['minlength']">
+                  Password shoud be minimum 8 char
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <p class=" text-color">Don't have an account ?<span (click)="toggleUserForm()" class="form-link">
+              Register Here</span></p>
+          <p class=" text-color">Forgot Password ?<span (click)="forgotPassword()" class="form-link">
+              Click Here</span></p>
+          <div class="flex middle-xs center-xs mt-30">
+            <app-button color="primary" size="md" btntype="submit"
+              [isBtnDisabled]="userLoginForm.invalid">Login</app-button>
+          </div>
+        </form>
+      </div>
+
+      <!-- User Forgot password -->
+      <div class="" style="min-width: 420px;" *ngIf="isForgotPassword">
+        <h3 class="tac text-color fs-24 mt-10 mb-30 fw-semibold">Forgot Password</h3>
+        <form [formGroup]="forgotPasswordForm" class="w-100 mt-10 pl-15 pr-15 pb-20"
+          (ngSubmit)="forgotPasswordFormSubmit()">
+          <div class=" flex  mt-10 mb-30">
+            <p class=" fw-semibold" for="Name">Email :</p>
+            <div class="flex flex-col custom-input-class ml-40">
+              <input type="text" class="  fs-16 fw-semibold" formControlName="email">
+              <ng-container *ngIf="forgotPasswordForm.get('email').invalid && forgotPasswordForm.get('email').touched">
+                <p style="color: red;margin-top: 5px;" class=" fs-14"
+                  *ngIf="forgotPasswordForm.get('email').hasError('required')">
+                  Email is required
+                </p>
+                <p style="color: #ff0000;margin-top: 5px;" class="ml-20 fs-14"
+                  *ngIf="forgotPasswordForm.get('email').errors['pattern']">
+                  Please enter a valid email
+                </p>
+              </ng-container>
+            </div>
+          </div>
+          <p class="text-color">Go Back <span (click)="toggleUserForm()" class="form-link">Click Here</span></p>
+          <div class="flex middle-xs center-xs mt-30">
+            <app-button color="primary" btntype="submit" size="md"
+              [isBtnDisabled]="!forgotPasswordForm.valid">Submit</app-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

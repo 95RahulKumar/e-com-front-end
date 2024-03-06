@@ -1,0 +1,54 @@
+.app-layout{
+  width: 100%;
+  min-height:100vh;
+  padding-left:var(--varside-bar);
+  transition:all 0.2s ease-in;
+  app-sidebar{
+    width:var(--varside-bar) ;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:11;
+    transition:all 0.2s ease-in;
+  }
+  main{
+    grid-area:main;
+    flex-grow:1;
+    padding: 20px 6.25%;
+  }
+  &.is_open{
+    padding-left:0;
+    app-sidebar{
+      position: fixed;
+      left:0px;
+      left:calc(-1*var(--varside-bar));
+    }
+  }
+}
+
+app-loader{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+//writing the meadiquery for responsive view
+@media screen and (max-width:1350px) {
+
+  .app-layout{
+    // width: 100%;
+    padding-left:0px;
+    app-sidebar{
+      position: fixed;
+      left:calc(-1*var(--varside-bar));
+    }
+    &.is_open{
+      padding-left:0;
+      app-sidebar{
+        position: fixed;
+        left:0px;
+      }
+    }
+  }
+}
+

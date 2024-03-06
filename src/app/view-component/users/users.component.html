@@ -1,0 +1,181 @@
+<div *ngIf="userCount" class="header inter flex flex-col  middle-xs p-15">
+  <h3 class="fs-28 fw-semibold col-accent-500 mt-15 mb-10">
+    <span class="header__count  middle-xs center-xs ">{{userCount}}</span>
+  </h3>
+  <p class="fs-20 fw-semibold">Total Users</p>
+</div>
+<!-- <h3 class="fs-24 fw-semibold col-accent-500 mt-10">Edit Users</h3> -->
+<!-- <mat-form-field appearance="outline" style="margin-top: 20px; margin-bottom:-30px;">
+  <mat-icon matSuffix="end">search</mat-icon>
+  <input matInput placeholder="Search by name" (keyup)="applyFilter($event)" #input>
+</mat-form-field> -->
+<div class="flex between-xs middle-xs flex-wrap">
+  <form class="example-form" [formGroup]="autoComp">
+    <mat-form-field class="example-full-width" appearance="outline" style="margin-top: 20px; margin-bottom:-30px;">
+      <mat-icon class="cur-point col-accent-500" matSuffix="end" (click)="clear()">
+        arrow_drop_down
+      </mat-icon>
+      <input type="text" placeholder="Search Name" aria-label="Number" matInput formControlName="inputVal"
+        [matAutocomplete]="auto" #inputRef>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="applyFilter($event)">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option | titlecase">
+          {{option | titlecase}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <!-- date-range-picker -->
+  <div>
+    <mat-form-field appearance="legacy" class="mt-10 " id="custom-datepicker">
+      <mat-label>Date Range</mat-label>
+      <mat-date-range-input (click)="picker.open()" [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate readonly formControlName="start" placeholder="Start date" #dateRangeStart />
+        <input matEndDate readonly formControlName="end" placeholder="End date" #dateRangeEnd
+          (dateChange)="dateRangeChange()" />
+      </mat-date-range-input>
+      <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon disableRipple class="position_icon">
+          <!-- <svg-icon class="mr-5 " symbol="calendar" w='25' h="25" style="color:var(--col-accent-500)"></svg-icon> -->
+          <svg-icon symbol="calendar" w='20' h="20" class="col-accent-300"></svg-icon>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #picker [calendarHeaderComponent]="RangepickerheaderComponent">
+      </mat-date-range-picker>
+    </mat-form-field>
+    <svg-icon (click)="fileDownload()" symbol="download" w='20' h="20" class="col-accent-300 ml-10"></svg-icon>
+  </div>
+</div>
+
+<div class="ov-auto">
+  <table *ngIf="dataSource?.data?.length" mat-table [dataSource]="dataSource"
+    class="mat-elevation-z0 mt-30 w-100 table-width">
+    <colgroup>
+      <col width="200">
+      <col width="200">
+      <col width="400">
+      <col width="100">
+      <col width="300">
+      <col width="100">
+      <col width="150">
+      <col width="150">
+    </colgroup>
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.name | titlecase}} </td>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef>Gender</th>
+      <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+    </ng-container>
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>CreatedAt</th>
+      <td mat-cell *matCellDef="let element"> {{element.createdAt |date:'shortDate'}} </td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        No data matching the filter.
+      </td>
+    </tr>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role </th>
+      <td mat-cell *matCellDef="let element"> {{element.role | titlecase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef> Edit </th>
+      <td mat-cell *matCellDef="let element;let i=index">
+        <svg-icon symbol="edit" w='20' h="20" (click)="editUserPopUp(i)"></svg-icon>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
+      <td mat-cell *matCellDef="let element;let i=index">
+        <svg-icon class="col-warn-500" symbol="delete" w='20' h="20" (click)="deleteUser(i)"></svg-icon>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<ng-template #editProductTemp>
+  <div class="text-color flex flex-col">
+    <form [formGroup]="editUserForm" class="w-100  pl-15 pr-15 " (ngSubmit)="editUserFormSubmit()">
+      <div class=" flex flex-col ">
+        <div class="flex  between-xs custom-input-class ">
+          <p class=" fw-semibold" for="Name">Name :</p>
+          <div class="flex ml-20 flex-col custom-input-class">
+            <input type="text" class="  fs-16 fw-semibold" formControlName="name">
+            <ng-container *ngIf="name.invalid && name.touched">
+              <p style="color: red;margin-top: 5px;" class=" fs-14" *ngIf="name.hasError('required')">
+                Name is required
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="flex between-xs custom-input-class mt-15">
+          <p class=" fw-semibold" for="Name">Email :</p>
+          <div class=" ml-20 flex flex-col custom-input-class">
+            <input type="text" class="  fs-16 fw-semibold" formControlName="email">
+            <ng-container *ngIf="email.invalid && email.touched">
+              <p style="color: red;margin-top: 5px;" class=" fs-14" *ngIf="email.hasError('required')">
+                Email is required
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="flex between-xs custom-input-class mt-15">
+          <p class=" fw-semibold" for="Name">Role :</p>
+          <div class="flex ml-10 flex-col custom-select">
+            <mat-form-field appearance="outline" placeholder="Select Gender">
+              <mat-select class="" formControlName="role">
+                <mat-option *ngFor="let role of ROLES" [value]="role">
+                  {{role | titlecase}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <select formControlName="role">
+              <option [value]="role" *ngFor="let role of ROLES">
+                {{role}}
+              </option>
+            </select> -->
+            <ng-container *ngIf="role.invalid && role.touched">
+              <p style="color: red;margin-top: 5px;" class=" fs-14" *ngIf="role.hasError('required')">
+                Role is required
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div class=" flex  mt-10">
+          <p class=" fw-semibold middle-xs inline-flex" for="Name">Profile Pic :</p>
+          <input type="file" class="file-input" #inputFile (change)="onFileSelected($event)" #fileUpload>
+          <div class="file-upload ml-20 flex middle-xs">
+            <button type="button" color="primary" class="upload-btn p-10 mr-5" (click)="fileUpload.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <div class="middle-xs">{{fileName || "No file uploaded yet."}}</div>
+          </div>
+        </div> -->
+      </div>
+      <div class="flex middle-xs center-xs mt-30 mb-10">
+        <app-button color="primary" btntype="submit" size="md"
+          [isBtnDisabled]="editUserForm.invalid">Update</app-button>
+      </div>
+    </form>
+  </div>
+</ng-template>

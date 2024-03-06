@@ -1,0 +1,296 @@
+<div *ngIf="totalProdcts" class="header inter flex flex-col  middle-xs p-15">
+  <h3 class="fs-28 fw-semibold col-accent-500 mt-15 mb-10">
+    <span class="header__count  middle-xs center-xs ">{{totalProdcts}}</span>
+  </h3>
+  <p class="fs-20 fw-semibold">Total Products</p>
+</div>
+<h3 *ngIf="isProductEdit" class="fs-24 fw-semibold col-accent-500 mt-10">Edit Products</h3>
+<div *ngIf="totalProdcts " class="flex between-xs middle-xs flex-wrap">
+  <div class="flex middle-xs flex-wrap">
+    <mat-form-field appearance="outline" style="margin-top: 15px; margin-bottom:-20px;">
+      <mat-icon matSuffix="end">search</mat-icon>
+      <input mat-input matInput [formControl]="keyWord" placeholder="Search By Name">
+    </mat-form-field>
+    <mat-button-toggle-group class="ml-10 mt-15" #group="matButtonToggleGroup" value="list"
+      (change)="selectedViewType($event)">
+      <mat-button-toggle value="list">
+        <mat-icon>
+          format_list_bulleted
+        </mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="grid" appearance="legacy">
+        <mat-icon><span class="material-symbols-outlined">
+            grid_view
+          </span></mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="filter" appearance="legacy" (click)="openFilterPopup()">
+        <mat-icon><span class="material-symbols-outlined">
+            filter_alt
+          </span></mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div class="pills flex flex-wrap mt-20">
+    <span class="pills__item inter fs-14" *ngFor="let words of availableKeywords;let i=index"
+      [ngClass]="activeIndex==i?'active':''" (click)="setActiveClass(words,i)">
+      {{words | titlecase}}
+    </span>
+  </div>
+</div>
+<ng-template #noData>
+  <div class="no-data" *ngIf="isNoRes">
+    <img src="../../../assets/images/nodata.svg" alt="">
+    <p class="fs-18 col-accent-500">No Results Found</p>
+  </div>
+</ng-template>
+
+<ng-container *ngIf="selectedType==viewType.List">
+  <div class="ov-auto">
+    <table *ngIf="tableDataSource?.data?.length;else noData" mat-table [dataSource]="tableDataSource" matSort
+      class="mat-elevation-z0 mt-20 w-100 table-width">
+      <colgroup>
+        <col width="70">
+        <col width="200">
+        <col width="150">
+        <col width="250">
+        <col width="100">
+        <col width="120">
+        <col width="300">
+        <col width="80">
+        <col width="120">
+        <col width="120">
+      </colgroup>
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+      <ng-container matColumnDef="serial_no">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>id</th>
+        <td mat-cell *matCellDef="let element;let i =index"> {{element.serial_no}} </td>
+      </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>CreatedAt </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt|date:'fullDate'}} </td>
+      </ng-container>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="12" style="text-align:center;">No data Match</td>
+      </tr>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="stock">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
+        <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="ratings">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ratings </th>
+        <td mat-cell *matCellDef="let element"> {{element.ratings}} </td>
+      </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let element;let i=index">
+          <svg-icon symbol="edit" w='20' h="20" (click)="editProductPopUp(i,$event)"></svg-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element;let i=index">
+          <svg-icon class="col-warn-500" symbol="delete" w='20' h="20" (click)="deleteProduct(i,$event)"></svg-icon>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clickedRow(row)"></tr>
+    </table>
+  </div>
+</ng-container>
+<ng-container *ngIf="selectedType==viewType.Grid">
+  <div class="product mt-15" *ngIf="tableDataSource.data.length>0;else noData">
+    <div class="product__item inter " *ngFor="let prod of tableDataSource.data;let i=index">
+      <p class="fs-20 fw-semibold">{{prod.name}}</p>
+      <span class="flex " style="margin:5px 0;">
+        <svg-icon *ngFor="let rat of rating" symbol="star" w='20' h="20"></svg-icon>
+      </span>
+      <p style="margin:5px 0;">{{prod.price | currency:"INR":"symbol"}}</p>
+      <p style="margin:5px 0;">Category : {{prod.category}}</p>
+      <p style="margin:5px 0;">{{prod.description}}</p>
+      <span class="product__delete">
+        <svg-icon class="col-warn-500 " symbol="delete" w='18' h="18" (click)="deleteProduct(i,$event)"></svg-icon>
+      </span>
+      <span class="product__edit">
+        <svg-icon symbol="edit" w='18' h="18" (click)="editProductPopUp(i,$event)"></svg-icon>
+      </span>
+    </div>
+  </div>
+</ng-container>
+<div class="flex middle-xs start-xs paginator-container" [hidden]="tableDataSource?.data?.length==0">
+  <mat-paginator #paginator class="demo-paginator" [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions"
+    (page)="handlePageChange($event)" [length]="totalProdcts" [pageSize]="pageSize" [hidePageSize]="hidePageSize"
+    [pageIndex]="pageIndex">
+  </mat-paginator>
+  <ng-container>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>
+        <span class="material-symbols-outlined">
+          more_vert
+        </span>
+      </mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <p class="page-slection-lable">Showing Up to</p>
+      <button mat-menu-item class="section-option" *ngFor="let PageSize of pageSizeOptions"
+        (click)="setPageSize(PageSize)">
+        <div *ngIf="PageSize==pageSize">
+          <mat-icon matPrefix class="col-accent-500">
+            <svg-icon symbol="check" w='20' h="20" class="col-accent-500"></svg-icon>
+          </mat-icon>
+        </div>
+        <div class="dummy" *ngIf="PageSize!=pageSize"></div>
+        <span>{{PageSize}}</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+</div>
+<ng-template #editProductTemp>
+  <div class="text-color flex flex-col">
+    <form [formGroup]="editProductForm" class="w-100  pl-15 pr-15 " (ngSubmit)="editProductFormSubmit()">
+      <div class=" flex flex-col ">
+        <div class="flex  between-xs custom-input-class ">
+          <p class=" fw-semibold" for="Name">Name :</p>
+          <div class="flex ml-20 flex-col custom-input-class">
+            <input type="text" class="  fs-16 fw-semibold" formControlName="name">
+            <ng-container *ngIf="name.invalid && name.touched">
+              <p style="color: red;margin-top: 5px;" class=" fs-14" *ngIf="name.hasError('required')">
+                Name is required
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="flex between-xs custom-input-class mt-15">
+          <p class=" fw-semibold" for="Name">Price :</p>
+          <div class=" ml-20 flex flex-col custom-input-class">
+            <input type="text" class="  fs-16 fw-semibold" formControlName="price">
+            <ng-container *ngIf="price.invalid && price.touched">
+              <p style="color: red;margin-top: 5px;" class=" fs-14" *ngIf="price.hasError('required')">
+                Price is required
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class=" flex  mt-10">
+          <p class=" fw-semibold middle-xs inline-flex" for="Name">Product Pic :</p>
+          <input type="file" class="file-input" #inputFile (change)="onFileSelected($event)" #fileUpload>
+          <div class="file-upload ml-20 flex middle-xs">
+            <button type="button" color="primary" class="upload-btn p-10 mr-5" (click)="fileUpload.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <div class="middle-xs">{{fileName || "No file uploaded yet."}}</div>
+          </div>
+        </div>
+        <div class="flex between-xs custom-input-class mt-15">
+          <p class=" fw-semibold" for="Name">Description :</p>
+          <div class="flex ml-10 flex-col custom-input-class">
+            <textarea type="text" class="  fs-16 fw-semibold" formControlName="description"></textarea>
+            <ng-container *ngIf="description.invalid && description.touched">
+              <p style="color: red;margin-top: 5px;" class=" fs-14" *ngIf="description.hasError('required')">
+                Description is required
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="flex middle-xs center-xs mt-30 mb-10">
+        <app-button color="primary" btntype="submit" size="md"
+          [isBtnDisabled]="editProductForm.invalid">Update</app-button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #filterTemplate>
+  <div class="flex between-xs inter">
+    <div class=" mr-20">
+      <p class="mr-20 col-accent-300 fw-semibold">By Ratings</p>
+      <mat-selection-list #ratingWpr [multiple]="false" (selectionChange)="onListSelChange($event)">
+        <mat-list-option *ngFor="let rating of Ratings" [value]="rating">
+          <div class="flex middle-xs fs-14">
+            <span style="margin-left:7px;">
+              {{rating}}
+            </span>
+            <mat-icon class="fs-21" style="color:yellow;">star</mat-icon>
+            <span>
+              & Above
+            </span>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+    <section class="flex flex-col">
+      <h4 class="mb-15 col-accent-300 fw-semibold">By Price</h4>
+      <mat-radio-group class="custom-checkbox" name="flavors" (change)="priceChange($event)">
+        <mat-radio-button value="10000">Above 10000</mat-radio-button>
+        <mat-radio-button value="20000">Above 20000</mat-radio-button>
+        <mat-radio-button value="30000">Above 50000</mat-radio-button>
+      </mat-radio-group>
+    </section>
+  </div>
+
+
+</ng-template>
+<ng-template #viewDetailTemplate>
+  <div class="detailspopup">
+    <div class="detailspopup__image">
+      <img [src]="currentViewItem?.image[0]?.url" alt="Preview Image">
+    </div>
+    <div class="detailspopup__des mb-10">
+      <p class="row-text">{{currentViewItem.name| titlecase}} </p>
+      <p class="grey fw-600 fs-13 mt-10" style="max-width:200px">{{currentViewItem.description}}</p>
+      <p class="col-accent-500 fs-13 mt-10">
+        Price
+      </p>
+      <p class="fs-18 mt-10">
+        {{currentViewItem.price |currency:'INR'}}
+      </p>
+      <div class="flex flex-start middle-xs mt-10 fs-13">
+        <div class="detailspopup__ratings mr-10">
+          <p style="margin-left:5px">{{currentViewItem.ratings}}</p>
+          <span>
+            <mat-icon class="fs-19" style="color:#fff;">star</mat-icon>
+          </span>
+        </div>
+        <p class="grey">Rated by {{currentViewItem.numOfReviews}} people</p>
+      </div>
+      <div class="mt-10 flex flex-start middle-xs">
+        <p class="grey row-text col-accent-500 mr-10">Available Stocks</p>
+        <p class="fw-700">{{currentViewItem.stock}}</p>
+      </div>
+      <div class="mt-10 flex flex-start middle-xs">
+        <p class="grey fw-700">Category</p>
+        <svg-icon symbol="arrow-right" w='20' h="20"></svg-icon>
+        <p class="fw-700 col-accent-300">{{currentViewItem.category |titlecase}}</p>
+      </div>
+      <div class="mt-10 fs-13 flex flex-start middle-xs">
+        <p class="grey  mr-10">Added On</p>
+        <!-- <svg-icon symbol="arrow-right" w='20' h="20"></svg-icon> -->
+        <p class=" grey">{{currentViewItem.createdAt|date:'dd/MM/yyyy'}}</p>
+      </div>
+
+    </div>
+  </div>
+</ng-template>

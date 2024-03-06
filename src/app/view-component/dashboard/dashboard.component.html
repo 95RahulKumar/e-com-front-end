@@ -1,0 +1,83 @@
+<h3 class="fs-24 fw-semibold col-accent-500 inter mt-10">Dashboard</h3>
+<ng-template #unavailable>
+  <span class="col-warn-500 fs-13 mt-10 fw-semibold">
+    N/A
+  </span>
+</ng-template>
+<div class="flex charts-container between-xs middle-xs mt-15 flex-wrap">
+  <div id="chart" class="apex-charts mt-15 mb-15 flex start-xs middle-xs chart-pos">
+    <apx-chart [series]="chartOptions.series" [plotOptions]="chartOptions.plotOptions" [fill]="chartOptions.fill"
+      [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels" [colors]="chartOptions.colors"
+      [chart]="chartOptions.chart" [labels]="chartOptions.labels" [responsive]="chartOptions.responsive"></apx-chart>
+  </div>
+  <!-- <div>
+    <div class="details__avatar details__avatar--yellow mr-10 p-15" style="background-color:var(col-primary-500);">
+      <svg-icon class="col-warn-500" symbol="wallet" w='25' h="25"></svg-icon>
+    </div>
+    <span class="details__des fs-14">
+      <p class="fw-semibold">Total Revenue</p>
+      <p *ngIf="totalRevenue;else unavailable">{{totalRevenue}}</p>
+    </span>
+  </div> -->
+  <div class="chart-container">
+    <canvas id="MyChart">{{ chart }}</canvas>
+  </div>
+</div>
+<div class="flex middle-xs flex-wrap outer-container ">
+  <div class="details mt-20  inter">
+    <div class="details__card flex flex-col">
+      <div class="flex ">
+        <div class="details__avatar details__avatar--yellow mr-10 p-15" style="background-color:var(col-primary-500);">
+          <svg-icon class="col-warn-500" symbol="wallet" w='25' h="25"></svg-icon>
+        </div>
+        <span class="details__des fs-14">
+          <p class="fw-semibold">Total Revenue</p>
+        </span>
+      </div>
+      <circle-progress *ngIf="totalRevenue;else unavailable" [percent]="totalRevenue" [radius]="55"
+        [outerStrokeWidth]="12" [innerStrokeWidth]="10" [animation]="true" [animationDuration]="400"
+        [outerStrokeGradient]="true" [outerStrokeWidth]="10" [outerStrokeColor]="'#177309aa'"
+        [outerStrokeGradientStopColor]="'#e1dedeb4'" [innerStrokeColor]="'#64636373'">
+      </circle-progress>
+    </div>
+
+    <div class="details__card flex flex-col">
+      <div class="flex">
+        <div class="details__avatar mr-10 p-15">
+          <svg-icon class="col-warn-500" symbol="cart" w='23' h="23"></svg-icon>
+        </div>
+        <span class="details__des fs-14">
+          <p class="fw-semibold">Total Orders</p>
+        </span>
+      </div>
+      <circle-progress *ngIf="totalOrder;else unavailable" [percent]="totalOrder" [radius]="55" [outerStrokeWidth]="12"
+        [innerStrokeWidth]="10" [animation]="true" [animationDuration]="400" [outerStrokeGradient]="true"
+        [outerStrokeWidth]="10" [outerStrokeColor]="'#177309aa'" [outerStrokeGradientStopColor]="'#e1dedeb4'"
+        [innerStrokeColor]="'#64636373'">
+      </circle-progress>
+
+    </div>
+
+
+
+    <div class="details__card flex flex-col">
+      <div class="flex">
+        <div class="details__avatar details__avatar--green mr-10 p-15" style="background-color:var(col-accent-500);">
+          <svg-icon class="col-warn-500" symbol="car" w='25' h="25"></svg-icon>
+        </div>
+        <span class="details__des fs-14">
+          <p class="fw-semibold">Ordered Delivered</p>
+        </span>
+      </div>
+      <circle-progress *ngIf="delevered;else unavailable" [percent]="delevered" [radius]="55" [outerStrokeWidth]="12"
+        [innerStrokeWidth]="10" [animation]="true" [animationDuration]="400" [outerStrokeGradient]="true"
+        [outerStrokeWidth]="10" [outerStrokeColor]="'#177309aa'" [outerStrokeGradientStopColor]="'#e1dedeb4'"
+        [innerStrokeColor]="'#64636373'">
+      </circle-progress>
+    </div>
+  </div>
+  <div class=" flex  flex-col mt-15 ml-10">
+    <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
+      [plotOptions]="areaChartOptions.plotOptions" [labels]="areaChartOptions.labels"></apx-chart>
+  </div>
+</div>

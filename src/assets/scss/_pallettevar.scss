@@ -1,0 +1,73 @@
+@import './pallete';
+
+
+body{
+  //pallate color for theme
+  --col-theme_bg-50:#{map-get($theme_bg ,50)};
+  --col-theme_bg-100:#{map-get($theme_bg ,100)};
+  --col-theme_bg-200:#{map-get($theme_bg ,200)};
+  --col-theme_bg-300:#{map-get($theme_bg ,300)};
+  --col-theme_bg-400:#{map-get($theme_bg ,400)};
+  --col-theme_bg-500:#{map-get($theme_bg ,500)};
+  --col-theme_bg-600:#{map-get($theme_bg ,600)};
+  --col-theme_bg-700:#{map-get($theme_bg ,700)};
+  --col-theme_bg-800:#{map-get($theme_bg ,800)};
+  --col-theme_bg-900:#{map-get($theme_bg ,900)};
+  --col-on-theme_bg-100:#{map-get($theme_bg ,A100)};
+  --col-on-theme_bg-200:#{map-get($theme_bg ,A200)};
+  --col-on-theme_bg-400:#{map-get($theme_bg ,A400)};
+  --col-on-theme_bg-700:#{map-get($theme_bg ,A700)};
+
+//primary color variable using pallette
+    --col-primary-50:#{map-get($primary ,50)};
+    --col-primary-100:#{map-get($primary ,100)};
+    --col-primary-200:#{map-get($primary ,200)};
+    --col-primary-300:#{map-get($primary ,300)};
+    --col-primary-400:#{map-get($primary ,400)};
+    --col-primary-500:#{map-get($primary ,500)};
+    --col-primary-600:#{map-get($primary ,600)};
+    --col-primary-700:#{map-get($primary ,700)};
+    --col-primary-800:#{map-get($primary ,800)};
+    --col-primary-900:#{map-get($primary ,900)};
+    --col-on-primary-100:#{map-get($primary ,A100)};
+    --col-on-primary-200:#{map-get($primary ,A200)};
+    --col-on-primary-400:#{map-get($primary ,A400)};
+    --col-on-primary-700:#{map-get($primary ,A700)};
+
+//dark color variable using pallette
+    --col-accent-50:#{map-get($accent ,50)};
+    --col-accent-100:#{map-get($accent ,100)};
+    --col-accent-200:#{map-get($accent ,200)};
+    --col-accent-300:#{map-get($accent ,300)};
+    --col-accent-400:#{map-get($accent ,400)};
+    --col-accent-500:#{map-get($accent ,500)};
+    --col-accent-600:#{map-get($accent ,600)};
+    --col-accent-700:#{map-get($accent ,700)};
+    --col-accent-800:#{map-get($accent ,800)};
+    --col-accent-900:#{map-get($accent ,900)};
+    --col-on-accent-100:#{map-get($accent ,A100)};
+    --col-on-accent-200:#{map-get($accent ,A200)};
+    --col-on-accent-400:#{map-get($accent ,A400)};
+    --col-on-accent-700:#{map-get($accent ,A700)};
+
+//warn color variable using pallette
+    --col-warn-50:#{map-get($warn ,50)};
+    --col-warn-100:#{map-get($warn ,100)};
+    --col-warn-200:#{map-get($warn ,200)};
+    --col-warn-300:#{map-get($warn ,300)};
+    --col-warn-400:#{map-get($warn ,400)};
+    --col-warn-500:#{map-get($warn ,500)};
+    --col-warn-600:#{map-get($warn ,600)};
+    --col-warn-700:#{map-get($warn ,700)};
+    --col-warn-800:#{map-get($warn ,800)};
+    --col-warn-900:#{map-get($warn ,900)};
+    --col-on-warn-100:#{map-get($warn ,A100)};
+    --col-on-warn-200:#{map-get($warn ,A200)};
+    --col-on-warn-400:#{map-get($warn ,A400)};
+    --col-on-warn-700:#{map-get($warn ,A700)};
+
+    --varside-bar:230px;
+    --sideToggleIcon:210px;
+}
+
+

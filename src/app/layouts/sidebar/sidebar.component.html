@@ -1,0 +1,45 @@
+<div class="sidebar">
+  <div class="user p-15 pb-30">
+    <div class="user__pic ">
+      <div class="user__dot" *ngIf="isLogin"></div>
+    </div>
+    <div class="user__name mt-20" *ngIf="isLogin">Hi,{{loggedInUser}}</div>
+    <div class="user__name mt-20" *ngIf="!isLogin">Hello</div>
+    <div class="right-arrow" [class.is_open]="isOpend" (click)="sideToggle()">
+      <svg-icon symbol="right-arrow" w='33' h="35" style="color:var(--col-primary-200)">
+      </svg-icon>
+    </div>
+  </div>
+  <ul class="menu fs-14">
+    <li *ngFor="let menueItem of Menu;let i=index">
+      <!-- <span class="flex middle-xs " (click)="menueItem.isActive=!menueItem.isActive" routerLinkActive="menu_link">
+        <a [routerLink]="menueItem?.link" (click)="login(menueItem?.text,$event)">
+          {{menueItem?.text | titlecase}}
+        </a>
+        <svg-icon [@rotateToggle]="menueItem.isActive ? 'expanded' : 'collapsed'" *ngIf="menueItem.submenu"
+          class="white ml-10" symbol="right-arrow" w='20' h="20"></svg-icon>
+      </span> -->
+      <span class="flex middle-xs " (click)="toggleSlide(i)" routerLinkActive="menu_link">
+        <a *ngIf="menueItem?.link" [routerLink]="routePrefix+'/'+menueItem?.link" [state]="{target: menueItem?.link }"
+          (click)="login(menueItem?.text,$event)">
+          {{menueItem?.text | titlecase}}
+          <svg-icon [@rotateToggle]="menueItem.isActive ? 'expanded' : 'collapsed'" *ngIf="menueItem.submenu"
+            class="white ml-10" symbol="right-arrow" w='20' h="20"></svg-icon>
+        </a>
+        <a *ngIf="!menueItem?.link" (click)="login(menueItem?.text,$event);">
+          {{menueItem?.text | titlecase}}
+          <svg-icon [@rotateToggle]="menueItem.isActive ? 'expanded' : 'collapsed'" *ngIf="menueItem.submenu"
+            class="white ml-10" symbol="right-arrow" w='20' h="20"></svg-icon>
+        </a>
+      </span>
+      <ul class="submenu fs-14" [@expandCollapse]="menueItem.isActive ? 'expanded' : 'collapsed'">
+        <li *ngFor="let submenu of menueItem.submenu">
+          <a [routerLink]="routePrefix+'/'+submenu?.link" routerLinkActive="submenu_link"
+            [state]="{target: submenu?.link }">
+            {{submenu?.text | titlecase}}
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
